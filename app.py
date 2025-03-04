@@ -4,7 +4,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Cargar la base de datos de recetas (asegúrate de poner la ruta correcta)
-url = "https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/conversacion_recetas.csv"
+url = "https://raw.githubusercontent.com/Diez-w/asistente-de-recetas/refs/heads/main/conversacion_recetas.csv"
 df = pd.read_csv(url, encoding="utf-8", sep=";")
   
 print(df.head())    # Esto imprimirá las primeras 5 filas del DataFrame
