@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas Saludables</title>
+    <script>
+   function buscarRecetas() {
+    let consulta = document.getElementById("buscador").value;
+    fetch(`/buscar?q=${consulta}`)
+        .then(response => response.json())
+        .then(data => {
+            let tabla = document.getElementById("tabla-recetas");
+            tabla.innerHTML = "";
+            data.forEach(receta => {
+                let fila = `<tr>
+                    <td><strong>${receta.Título}</strong></td>
+                    <td>${receta.Ingredientes.replace(/\n/g, '<br>')}</td>
+                    <td>${receta.Preparación.replace(/\n/g, '<br>')}</td>
+                </tr>`;
+                tabla.innerHTML += fila;
+            });
+        });
+}
+
+    </script>
+</head>
+<body>
+    <h1>Recetario Saludable</h1>
+    <input type="text" id="buscador" placeholder="Buscar receta..." onkeyup="buscarRecetas()">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Ingredientes</th>
+                <th>Preparación</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-recetas">
+            {% for receta in recetas %}
+            <tr>
+                <td><strong>{{ receta.Título }}</strong></td>
+                <td>{{ receta.Ingredientes | replace('\n', '<br>') | safe }}</td>
+                <td>{{ receta.Preparación | replace('\n', '<br>') | safe }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
